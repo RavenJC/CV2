@@ -5,219 +5,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cipher Tool</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #1e40af;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            min-height: 100vh;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
             width: 100%;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e40af;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e40af;
+            margin-bottom: 20px;
         }
 
         .page {
             display: none;
-            animation: fadeIn 0.5s ease-in;
         }
 
         .page.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        h2 {
-            text-align: center;
-            color: #444;
-            margin-bottom: 25px;
-            font-size: 2em;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
         .btn {
-            padding: 15px 30px;
+            background-color: #1e40af;
+            color: white;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1em;
-            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(45deg, #f093fb, #f5576c);
-            color: white;
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
-        }
-
-        .btn-success {
-            background: linear-gradient(45deg, #4facfe, #00f2fe);
-            color: white;
-            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
-        }
-
-        .btn-warning {
-            background: linear-gradient(45deg, #fa709a, #fee140);
-            color: white;
-            box-shadow: 0 4px 15px rgba(250, 112, 154, 0.4);
+            font-size: 16px;
+            margin: 5px;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            background-color: #3b82f6;
         }
 
-        .btn:active {
-            transform: translateY(-1px);
+        .btn-white {
+            background-color: white;
+            color: #1e40af;
+            border: 2px solid #1e40af;
+        }
+
+        .btn-white:hover {
+            background-color: #f0f0f0;
+        }
+
+        .button-group {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
         }
 
         input, textarea {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            font-family: inherit;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
         }
 
         input:focus, textarea:focus {
+            border-color: #1e40af;
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         textarea {
+            height: 100px;
             resize: vertical;
-            min-height: 120px;
         }
 
-        .result-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 15px;
-            border-left: 5px solid #667eea;
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border: 2px solid #1e40af;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .result h3 {
+            color: #1e40af;
+            margin-top: 0;
         }
 
         .result-text {
-            font-family: 'Courier New', monospace;
-            font-size: 1.1em;
-            line-height: 1.5;
-            color: #333;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
             word-wrap: break-word;
-            min-height: 50px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
         }
 
         .back-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: #333;
-            padding: 10px 20px;
-            border-radius: 25px;
+            background-color: white;
+            color: #1e40af;
+            border: 1px solid #1e40af;
+            padding: 8px 15px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
         }
 
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateX(-5px);
+            background-color: #f0f0f0;
         }
 
-        .mode-indicator {
+        .mode-display {
             text-align: center;
-            margin-bottom: 20px;
+            background-color: #f0f7ff;
             padding: 10px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 25px;
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                margin: 10px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .button-group {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #1e40af;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -226,14 +157,14 @@
         <!-- Homepage -->
         <div class="page active" id="homepage">
             <h1>🔐 Cipher Tool</h1>
-            <p style="text-align: center; color: #666; margin-bottom: 40px; font-size: 1.2em;">
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
                 Choose your encryption method
             </p>
             <div class="button-group">
-                <button class="btn btn-primary" onclick="showPage('caesar')">
+                <button class="btn" onclick="goToPage('caesar')">
                     🏛️ Caesar Cipher
                 </button>
-                <button class="btn btn-secondary" onclick="showPage('vigenere')">
+                <button class="btn" onclick="goToPage('vigenere')">
                     🔑 Vigenère Cipher
                 </button>
             </div>
@@ -241,22 +172,23 @@
 
         <!-- Caesar Cipher Page -->
         <div class="page" id="caesar">
-            <button class="back-btn" onclick="showPage('homepage')">← Back</button>
+            <button class="back-btn" onclick="goToPage('homepage')">← Back</button>
             <h2>🏛️ Caesar Cipher</h2>
-            <div class="mode-indicator" id="caesar-mode">Encryption Mode</div>
+            
+            <div class="mode-display" id="caesar-mode">Encryption Mode</div>
             
             <div class="button-group">
-                <button class="btn btn-success" id="caesar-encrypt" onclick="setCaesarMode('encrypt')">
+                <button class="btn" id="caesar-encrypt-btn" onclick="setCaesarMode('encrypt')">
                     🔒 Encrypt
                 </button>
-                <button class="btn btn-warning" id="caesar-decrypt" onclick="setCaesarMode('decrypt')">
+                <button class="btn-white btn" id="caesar-decrypt-btn" onclick="setCaesarMode('decrypt')">
                     🔓 Decrypt
                 </button>
             </div>
 
             <div class="form-group">
                 <label for="caesar-shift">Shift Amount (1-25):</label>
-                <input type="number" id="caesar-shift" min="1" max="25" value="3" placeholder="Enter shift amount">
+                <input type="number" id="caesar-shift" min="1" max="25" value="3">
             </div>
 
             <div class="form-group">
@@ -265,28 +197,29 @@
             </div>
 
             <div class="button-group">
-                <button class="btn btn-primary" onclick="processCaesar()">
+                <button class="btn" onclick="processCaesar()">
                     ⚡ Process Text
                 </button>
             </div>
 
-            <div class="result-section" id="caesar-result-section" style="display: none;">
-                <h3 style="margin-bottom: 15px; color: #667eea;">Result:</h3>
-                <div class="result-text" id="caesar-result"></div>
+            <div class="result" id="caesar-result">
+                <h3>Result:</h3>
+                <div class="result-text" id="caesar-result-text"></div>
             </div>
         </div>
 
         <!-- Vigenère Cipher Page -->
         <div class="page" id="vigenere">
-            <button class="back-btn" onclick="showPage('homepage')">← Back</button>
+            <button class="back-btn" onclick="goToPage('homepage')">← Back</button>
             <h2>🔑 Vigenère Cipher</h2>
-            <div class="mode-indicator" id="vigenere-mode">Encryption Mode</div>
+            
+            <div class="mode-display" id="vigenere-mode">Encryption Mode</div>
             
             <div class="button-group">
-                <button class="btn btn-success" id="vigenere-encrypt" onclick="setVigenereMode('encrypt')">
+                <button class="btn" id="vigenere-encrypt-btn" onclick="setVigenereMode('encrypt')">
                     🔒 Encrypt
                 </button>
-                <button class="btn btn-warning" id="vigenere-decrypt" onclick="setVigenereMode('decrypt')">
+                <button class="btn-white btn" id="vigenere-decrypt-btn" onclick="setVigenereMode('decrypt')">
                     🔓 Decrypt
                 </button>
             </div>
@@ -302,127 +235,137 @@
             </div>
 
             <div class="button-group">
-                <button class="btn btn-primary" onclick="processVigenere()">
+                <button class="btn" onclick="processVigenere()">
                     ⚡ Process Text
                 </button>
             </div>
 
-            <div class="result-section" id="vigenere-result-section" style="display: none;">
-                <h3 style="margin-bottom: 15px; color: #667eea;">Result:</h3>
-                <div class="result-text" id="vigenere-result"></div>
+            <div class="result" id="vigenere-result">
+                <h3>Result:</h3>
+                <div class="result-text" id="vigenere-result-text"></div>
             </div>
         </div>
     </div>
 
     <script>
-        let caesarMode = 'encrypt';
-        let vigenereMode = 'encrypt';
+        // Variables to track current modes
+        var caesarMode = 'encrypt';
+        var vigenereMode = 'encrypt';
 
-        function showPage(pageId) {
+        // Function to show different pages
+        function goToPage(pageName) {
             // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+            var pages = document.querySelectorAll('.page');
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove('active');
+            }
             
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
+            // Show the selected page
+            document.getElementById(pageName).classList.add('active');
         }
 
+        // Function to set Caesar cipher mode (encrypt or decrypt)
         function setCaesarMode(mode) {
             caesarMode = mode;
-            const modeIndicator = document.getElementById('caesar-mode');
-            const encryptBtn = document.getElementById('caesar-encrypt');
-            const decryptBtn = document.getElementById('caesar-decrypt');
+            var modeDisplay = document.getElementById('caesar-mode');
+            var encryptBtn = document.getElementById('caesar-encrypt-btn');
+            var decryptBtn = document.getElementById('caesar-decrypt-btn');
             
             if (mode === 'encrypt') {
-                modeIndicator.textContent = '🔒 Encryption Mode';
-                encryptBtn.style.background = '#1e40af';
-                decryptBtn.style.background = '#ffffff';
-                decryptBtn.style.color = '#1e40af';
-                encryptBtn.style.color = 'white';
-                encryptBtn.style.transform = 'scale(1.05)';
-                decryptBtn.style.transform = 'scale(1)';
+                modeDisplay.textContent = '🔒 Encryption Mode';
+                encryptBtn.className = 'btn';
+                decryptBtn.className = 'btn-white btn';
             } else {
-                modeIndicator.textContent = '🔓 Decryption Mode';
-                decryptBtn.style.background = '#1e40af';
-                encryptBtn.style.background = '#ffffff';
-                encryptBtn.style.color = '#1e40af';
-                decryptBtn.style.color = 'white';
-                decryptBtn.style.transform = 'scale(1.05)';
-                encryptBtn.style.transform = 'scale(1)';
+                modeDisplay.textContent = '🔓 Decryption Mode';
+                encryptBtn.className = 'btn-white btn';
+                decryptBtn.className = 'btn';
             }
         }
 
+        // Function to set Vigenère cipher mode (encrypt or decrypt)
         function setVigenereMode(mode) {
             vigenereMode = mode;
-            const modeIndicator = document.getElementById('vigenere-mode');
-            const encryptBtn = document.getElementById('vigenere-encrypt');
-            const decryptBtn = document.getElementById('vigenere-decrypt');
+            var modeDisplay = document.getElementById('vigenere-mode');
+            var encryptBtn = document.getElementById('vigenere-encrypt-btn');
+            var decryptBtn = document.getElementById('vigenere-decrypt-btn');
             
             if (mode === 'encrypt') {
-                modeIndicator.textContent = '🔒 Encryption Mode';
-                encryptBtn.style.background = 'linear-gradient(45deg, #4facfe, #00f2fe)';
-                decryptBtn.style.background = 'linear-gradient(45deg, #fa709a, #fee140)';
-                encryptBtn.style.transform = 'scale(1.05)';
-                decryptBtn.style.transform = 'scale(1)';
+                modeDisplay.textContent = '🔒 Encryption Mode';
+                encryptBtn.className = 'btn';
+                decryptBtn.className = 'btn-white btn';
             } else {
-                modeIndicator.textContent = '🔓 Decryption Mode';
-                decryptBtn.style.background = 'linear-gradient(45deg, #4facfe, #00f2fe)';
-                encryptBtn.style.background = 'linear-gradient(45deg, #fa709a, #fee140)';
-                decryptBtn.style.transform = 'scale(1.05)';
-                encryptBtn.style.transform = 'scale(1)';
+                modeDisplay.textContent = '🔓 Decryption Mode';
+                encryptBtn.className = 'btn-white btn';
+                decryptBtn.className = 'btn';
             }
         }
 
-        function caesarCipher(text, shift, decrypt = false) {
-            if (decrypt) shift = -shift;
+        // Caesar cipher function
+        function caesarCipher(text, shift, isDecrypt) {
+            var result = '';
+            if (isDecrypt) {
+                shift = -shift;
+            }
             
-            return text.split('').map(char => {
-                if (char.match(/[a-z]/i)) {
-                    const code = char.charCodeAt(0);
-                    const isUpperCase = code >= 65 && code <= 90;
-                    const base = isUpperCase ? 65 : 97;
-                    
-                    return String.fromCharCode(
-                        ((code - base + shift + 26) % 26) + base
-                    );
+            for (var i = 0; i < text.length; i++) {
+                var char = text[i];
+                
+                if (char >= 'A' && char <= 'Z') {
+                    // Uppercase letter
+                    var newChar = String.fromCharCode(((char.charCodeAt(0) - 65 + shift + 26) % 26) + 65);
+                    result += newChar;
+                } else if (char >= 'a' && char <= 'z') {
+                    // Lowercase letter
+                    var newChar = String.fromCharCode(((char.charCodeAt(0) - 97 + shift + 26) % 26) + 97);
+                    result += newChar;
+                } else {
+                    // Not a letter, keep as is
+                    result += char;
                 }
-                return char;
-            }).join('');
+            }
+            return result;
         }
 
-        function vigenereCipher(text, keyword, decrypt = false) {
+        // Vigenère cipher function
+        function vigenereCipher(text, keyword, isDecrypt) {
+            var result = '';
             keyword = keyword.toUpperCase().replace(/[^A-Z]/g, '');
-            if (!keyword) return text;
+            if (keyword === '') return text;
             
-            let keyIndex = 0;
-            return text.split('').map(char => {
-                if (char.match(/[a-z]/i)) {
-                    const charCode = char.toUpperCase().charCodeAt(0) - 65;
-                    const keyCode = keyword[keyIndex % keyword.length].charCodeAt(0) - 65;
+            var keyIndex = 0;
+            
+            for (var i = 0; i < text.length; i++) {
+                var char = text[i];
+                
+                if ((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z')) {
+                    var isUpperCase = (char >= 'A' && char <= 'Z');
+                    var charCode = char.toUpperCase().charCodeAt(0) - 65;
+                    var keyCode = keyword[keyIndex % keyword.length].charCodeAt(0) - 65;
                     
-                    let newCharCode;
-                    if (decrypt) {
+                    var newCharCode;
+                    if (isDecrypt) {
                         newCharCode = (charCode - keyCode + 26) % 26;
                     } else {
                         newCharCode = (charCode + keyCode) % 26;
                     }
                     
+                    var newChar = String.fromCharCode(newCharCode + 65);
+                    result += isUpperCase ? newChar : newChar.toLowerCase();
                     keyIndex++;
-                    
-                    const newChar = String.fromCharCode(newCharCode + 65);
-                    return char === char.toLowerCase() ? newChar.toLowerCase() : newChar;
+                } else {
+                    result += char;
                 }
-                return char;
-            }).join('');
+            }
+            return result;
         }
 
+        // Process Caesar cipher
         function processCaesar() {
-            const shift = parseInt(document.getElementById('caesar-shift').value);
-            const text = document.getElementById('caesar-text').value;
+            var shift = parseInt(document.getElementById('caesar-shift').value);
+            var text = document.getElementById('caesar-text').value;
             
-            if (!text.trim()) {
-                alert('Please enter some text to process!');
+            if (!text) {
+                alert('Please enter some text!');
                 return;
             }
             
@@ -431,40 +374,37 @@
                 return;
             }
             
-            const result = caesarCipher(text, shift, caesarMode === 'decrypt');
+            var result = caesarCipher(text, shift, caesarMode === 'decrypt');
             
-            document.getElementById('caesar-result').textContent = result;
-            document.getElementById('caesar-result-section').style.display = 'block';
+            document.getElementById('caesar-result-text').textContent = result;
+            document.getElementById('caesar-result').style.display = 'block';
         }
 
+        // Process Vigenère cipher
         function processVigenere() {
-            const keyword = document.getElementById('vigenere-keyword').value;
-            const text = document.getElementById('vigenere-text').value;
+            var keyword = document.getElementById('vigenere-keyword').value;
+            var text = document.getElementById('vigenere-text').value;
             
-            if (!text.trim()) {
-                alert('Please enter some text to process!');
+            if (!text) {
+                alert('Please enter some text!');
                 return;
             }
             
-            if (!keyword.trim()) {
+            if (!keyword) {
                 alert('Please enter a keyword!');
                 return;
             }
             
-            if (!/^[a-zA-Z]+$/.test(keyword.trim())) {
+            if (!/^[a-zA-Z]+$/.test(keyword)) {
                 alert('Keyword should contain only letters!');
                 return;
             }
             
-            const result = vigenereCipher(text, keyword, vigenereMode === 'decrypt');
+            var result = vigenereCipher(text, keyword, vigenereMode === 'decrypt');
             
-            document.getElementById('vigenere-result').textContent = result;
-            document.getElementById('vigenere-result-section').style.display = 'block';
+            document.getElementById('vigenere-result-text').textContent = result;
+            document.getElementById('vigenere-result').style.display = 'block';
         }
-
-        // Initialize modes
-        setCaesarMode('encrypt');
-        setVigenereMode('encrypt');
     </script>
 </body>
 </html>
